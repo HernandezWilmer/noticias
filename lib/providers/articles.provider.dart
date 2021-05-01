@@ -1,29 +1,34 @@
-import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
-import 'package:noticias/models/articulos.model.dart';
+import 'package:http/http.dart' as http;
+import 'package:noticias/models/article.model.dart';
 
 class ArticleProvider {
-  Future<List<Articulo>> getArticulos() async {
-    List<Articulo> listaDeArticulos = [];
-    Map<String, String> queryParameters = {
-      'q': 'tesla',
-      'from': '2021-03-30',
-      'sortBy': 'publishedAt',
-      'apiKey': '89009ac73341418593a1dafa0869a8d6',
-    };
+  Future<List<Article>> getArticles() async {
+    List<Article> articulos = [];
 
-    var url = Uri.https('newsapi.org', '/v2/everything', queryParameters);
+    try {
+      Map<String, String> queryParameters = {
+        'q': 'tesla',
+        'from': '2021-03-30',
+        'sortBy': 'publishedAt',
+        'apiKey': '89009ac73341418593a1dafa0869a8d6',
+      };
 
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      var jsonResponse =
-          convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var url = Uri.https('newsapi.org', '/v2/everything', queryParameters);
 
-      jsonResponse['articles']
-          .forEach((item) => {listaDeArticulos.add(Articulo.fromJson(item))});
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        var jsonResponse =
+            convert.jsonDecode(response.body) as Map<String, dynamic>;
 
-      return listaDeArticulos;
-    } else {
+        jsonResponse['articles']
+            .forEach((item) => articulos.add(Article.fromJson(item)));
+
+        return articulos;
+      } else {
+        return [];
+      }
+    } catch (e) {
       return [];
     }
   }

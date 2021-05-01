@@ -1,5 +1,5 @@
-class Articulo {
-  Articulo({
+class Article {
+  Article({
     this.source,
     this.author,
     this.title,
@@ -19,7 +19,7 @@ class Articulo {
   DateTime publishedAt;
   String content;
 
-  factory Articulo.fromJson(Map<String, dynamic> json) => Articulo(
+  factory Article.fromJson(Map<String, dynamic> json) => Article(
         source: Source.fromJson(json["source"]),
         author: json["author"] ?? '',
         title: json["title"] ?? '',
@@ -27,7 +27,7 @@ class Articulo {
         url: json["url"] ?? '',
         urlToImage: json["urlToImage"] ?? '',
         publishedAt: DateTime.parse(json["publishedAt"]),
-        content: json["content"],
+        content: json["content"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {

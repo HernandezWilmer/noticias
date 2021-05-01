@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:noticias/models/articulos.model.dart';
+import 'package:noticias/models/article.model.dart';
 import 'package:noticias/providers/articles.provider.dart';
 import 'package:noticias/widget/card.widget.dart';
 
@@ -9,12 +9,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final ArticleProvider articleProvider = ArticleProvider();
-  Future<List<Articulo>> listaArticulos;
+  final articleProvider = new ArticleProvider();
+  Future<List<Article>> listaArticulos;
 
   @override
   void initState() {
-    listaArticulos = articleProvider.getArticulos();
+    listaArticulos = articleProvider.getArticles();
     super.initState();
   }
 
@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title: Text("home"),
       ),
       body: _body(),
     );
@@ -30,24 +30,19 @@ class _HomePageState extends State<HomePage> {
 
   _body() {
     return FutureBuilder(
-        // initialData: [],
         future: listaArticulos,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<Article>> snapshot) {
           if (snapshot.hasData) {
             final datos = snapshot.data;
-            List<CardWidget> listaTemporal = [];
-
-            datos.forEach((element) {
-              listaTemporal.add(CardWidget(articulo: element));
-            });
-
             return ListView(
-              children: listaTemporal,
+              children: datos.map((e) {
+                return CardWidget(
+                  dataArticle: e,
+                );
+              }).toList(),
             );
           } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return Center(child: CircularProgressIndicator());
           }
         });
   }

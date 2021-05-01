@@ -23,9 +23,11 @@ class CardWidget extends StatelessWidget {
                 ],
               ),
             ),
-            FadeInImage(
-                placeholder: AssetImage('assets/loading.gif'),
-                image: NetworkImage(articulo.urlToImage)),
+            articulo.urlToImage == ''
+                ? Image(image: AssetImage('asset/no_iamge.jpg'))
+                : FadeInImage(
+                    placeholder: AssetImage('assets/loading.gif'),
+                    image: NetworkImage(articulo.urlToImage)),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(articulo.title),

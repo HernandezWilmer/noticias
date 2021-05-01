@@ -5,7 +5,7 @@ class ArticleProvider {
   getArticles() async {
     Map<String, String> queryParameters = {
       'q': 'tesla',
-      'from': '2021-03-30',
+      'from': '2021-04-30',
       'sortBy': 'publishedAt',
       'apiKey': 'cb138a72ec374a15abe19c412d8da9d1',
     };

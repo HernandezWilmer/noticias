@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noticias/providers/articles.provider.dart';
 //pub.dev
 
 class HomePage extends StatefulWidget {
@@ -7,8 +8,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final ArticleProvider articleProvider = ArticleProvider();
+
   @override
   Widget build(BuildContext context) {
+    articleProvider.getArticles();
     return Scaffold(
       appBar: AppBar(
         title: Text("Calculadora IMC"),

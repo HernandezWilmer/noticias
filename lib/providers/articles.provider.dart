@@ -1,13 +1,15 @@
-import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
+import 'package:noticias/models/articulos.model.dart';
 
 class ArticleProvider {
-  getArticles() async {
+  Future<List<Articulo>> getArticulos() async {
+    List<Articulo> listaDeArticulos = [];
     Map<String, String> queryParameters = {
       'q': 'tesla',
-      'from': '2021-04-30',
+      'from': '2021-03-30',
       'sortBy': 'publishedAt',
-      'apiKey': 'cb138a72ec374a15abe19c412d8da9d1',
+      'apiKey': '89009ac73341418593a1dafa0869a8d6',
     };
 
     var url = Uri.https('newsapi.org', '/v2/everything', queryParameters);
@@ -17,16 +19,12 @@ class ArticleProvider {
       var jsonResponse =
           convert.jsonDecode(response.body) as Map<String, dynamic>;
 
-      var itemCount = jsonResponse['totalItems'];
-
-      /*jsonResponse['articles'].forEach(item)  ==> listaDeArticulos.add(Articulo.fromJson(item))
+      jsonResponse['articles']
+          .forEach((item) => {listaDeArticulos.add(Articulo.fromJson(item))});
 
       return listaDeArticulos;
-      */
-
-      print('Number of books about http: $itemCount.');
     } else {
-      print('Request failed with status: ${response.statusCode}.');
+      return [];
     }
   }
 }

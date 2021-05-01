@@ -1,11 +1,5 @@
-import 'dart:convert';
-
-Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
-
-String welcomeToJson(Welcome data) => json.encode(data.toJson());
-
-class Welcome {
-  Welcome({
+class Articulo {
+  Articulo({
     this.source,
     this.author,
     this.title,
@@ -25,13 +19,13 @@ class Welcome {
   DateTime publishedAt;
   String content;
 
-  factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
+  factory Articulo.fromJson(Map<String, dynamic> json) => Articulo(
         source: Source.fromJson(json["source"]),
-        author: json["author"],
-        title: json["title"],
-        description: json["description"],
-        url: json["url"],
-        urlToImage: json["urlToImage"],
+        author: json["author"] ?? '',
+        title: json["title"] ?? '',
+        description: json["description"] ?? '',
+        url: json["url"] ?? '',
+        urlToImage: json["urlToImage"] ?? '',
         publishedAt: DateTime.parse(json["publishedAt"]),
         content: json["content"],
       );

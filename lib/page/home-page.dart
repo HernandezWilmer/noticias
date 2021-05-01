@@ -22,8 +22,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _body() {
-    return Container(
-      child: Text('Contenido home'),
-    );
+    return FutureBuilder(
+        future: articleProvider.getArticles(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          return Container(
+            child: Text('asdfff'),
+          );
+        });
   } // Cierre del _body
 } // Cierre de la clase

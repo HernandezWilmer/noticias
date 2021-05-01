@@ -16,7 +16,14 @@ class ArticleProvider {
     if (response.statusCode == 200) {
       var jsonResponse =
           convert.jsonDecode(response.body) as Map<String, dynamic>;
+
       var itemCount = jsonResponse['totalItems'];
+
+      /*jsonResponse['articles'].forEach(item)  ==> listaDeArticulos.add(Articulo.fromJson(item))
+
+      return listaDeArticulos;
+      */
+
       print('Number of books about http: $itemCount.');
     } else {
       print('Request failed with status: ${response.statusCode}.');
